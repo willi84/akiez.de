@@ -15,6 +15,7 @@ title: Redirects
       <th>type</th>
       <th>to</th>
       <th>from</th>
+      <th>Test</th>
     </tr>
   </thead>
   <tbody>
@@ -33,7 +34,8 @@ title: Redirects
         </td>
         <td>{{r.type}}</td>
         <td><a href="{{ r.to }}" target="_blank" rel="noopener">{{ r.to }}</a></td>
-        <td><code>{{ r.from }}</code> (<a href="{{ r.from }}" target="_blank" rel="noopener">👉 Test</a>)</td>
+        <td><code>{{ r.from }}</code></td>
+        <td><a href="{{ r.from }}" target="_blank" rel="noopener">👉 Test</a></td>
       </tr>
     {% endfor %}
   </tbody>
