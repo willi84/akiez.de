@@ -1,0 +1,12 @@
+{
+  "redirects": [
+    {
+      "from": "/internal",
+      "to": "/"
+    },
+    {
+      "from": "/kiezbeirat",
+      "to": "https://adlerkiez.de/"
+    }
+  ]
+}
