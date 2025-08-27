@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch index.ts",
+    "watch": "tsx watch index.ts",
+    "dev": "tsx index.ts",
     "build": "tsx index.ts && npx @11ty/eleventy --input=src --output=.vercel/output/static"
   },
   "repository": {

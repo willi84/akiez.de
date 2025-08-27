@@ -10,6 +10,7 @@ title: Redirects
 <table class="table">
   <thead>
     <tr>
+      <th>status</th>
       <th>Slug</th>
       <th>Ziel</th>
       <th>Testlink</th>
@@ -18,6 +19,17 @@ title: Redirects
   <tbody>
     {% for r in links %}
       <tr>
+        <td>
+          {% if r.status == 'active' %}
+            <span class="badge bg-success">active</span>
+          {% elif r.status == 'created' %}
+            <span class="badge bg-secondary">created</span>
+          {% elif r.status == 'inactive' %}
+            <span class="badge bg-danger">inactive</span>
+          {% else %}
+            <span class="badge bg-warning text-dark">{{ r.status }}</span>
+          {% endif %}
+        </td>
         <td><code>{{ r.from }}</code></td>
         <td><a href="{{ r.to }}" target="_blank" rel="noopener">{{ r.to }}</a></td>
         <td><a href="{{ r.from }}" target="_blank" rel="noopener">{{ r.from }}</a></td>
