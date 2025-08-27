@@ -90,7 +90,7 @@ const links = {
     targets: targets,
     domain: 'akiez.de',
     // get german date format
-    generated: (new Date()).toLocaleDateString('de-DE', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }),
+    generated: (new Date()).toLocaleString('de-DE', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }),
 }
 writeFileSync(`${DIR_DATA}/${FILE_LINKS}`, JSON.stringify(links, null, 2));
 
