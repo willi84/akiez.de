@@ -45,7 +45,7 @@ for (const entry of targets) {
                 "status": entry.status === 'active' ? 301 : 404,
                 "headers": { 
                     "Location": target,
-                    "cache-control": "public, max-age=31536000, immutable"
+                    "cache-control": "no-store"
                 }
             });
         }
