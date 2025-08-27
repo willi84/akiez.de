@@ -142,3 +142,4 @@ vite.config.ts.timestamp-*
 # vercel
 # vercel.json
 public
+.vercel

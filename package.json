@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch index.ts",
-    "prepare": "rm vercel.json && tsx index.ts",
-    "build": "ls -al"
+    "build": "tsx index.ts && npx @11ty/eleventy --output=.vercel/output/static"
   },
   "repository": {
     "type": "git",
