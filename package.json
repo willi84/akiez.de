@@ -1,0 +1,24 @@
+{
+  "name": "akiez.de",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx watch index.ts",
+    "build": "tsx index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willi84/akiez.de.git"
+  },
+  "author": "Robert Willemelis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/willi84/akiez.de/issues"
+  },
+  "homepage": "https://github.com/willi84/akiez.de#readme",
+  "dependencies": {
+    "tsx": "^4.20.5"
+  }
+}
