@@ -41,7 +41,7 @@ const DIR = '.vercel/output';
 if(!existsSync(DIR)) {
     mkdirSync(DIR, { recursive: true });
 }
-writeFileSync(`${DIR}/${FILE}`, JSON.stringify({ redirects }, null, 2));
+writeFileSync(`${DIR}/${FILE}`, JSON.stringify(result, null, 2));
 
 
 // create public/index.html
