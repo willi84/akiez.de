@@ -17,7 +17,19 @@ for (const row of json.table.rows) {
         if(value === colNames[i]) return; // skip header row
         entry[colNames[i]] = cell ? cell.v : null;
     });
-    if(entry.name && entry.ziel && entry.status) targets.push({from: `/${entry.name}`, to: entry.ziel, status: entry.status});
+    if(entry.name && entry.ziel && entry.status){
+        const to = entry.ziel;
+        const hasProtocol = to.startsWith('http://');
+        const hasDomain = to.includes('.') && !to.startsWith('/') && !to.endsWith('.html');
+        const isExternal = to.startsWith('http') || hasDomain;
+        if(isExternal){
+            const finalTo = hasProtocol ? to : `https://${to}`;
+            targets.push({from: `/${entry.name}`, to: finalTo, status: entry.status, type: 'external'});
+        } else {
+            targets.push({from: `/${entry.name}`, to: to, status: entry.status, type: 'internal'});
+        }
+        //
+    } 
     console.log(entry);
 }
 
@@ -34,10 +46,8 @@ const result: any = {
 const existingFroms = [];
 for (const entry of targets) {
     if(entry.status === 'created') continue; // skip created entries
-    const hasProtocol = entry.to.startsWith('http://');
-    const hasDomain = entry.to.includes('.') && !entry.to.startsWith('/') && !entry.to.endsWith('.html');
-    if(entry.to.startsWith('http') || hasDomain) {
-        let target = hasProtocol ? entry.to : `https://${entry.to}`;
+    if(entry.type === 'external') {
+        let target = entry.to;
         if(!existingFroms.includes(entry.from)){
             existingFroms.push(entry.from);
             result.routes.push({
@@ -74,4 +84,8 @@ writeFileSync(`${DIR_OUTPUT}/${FILE_CONFIG}`, JSON.stringify(result, null, 2));
 if(!existsSync(DIR_DATA)) {
     mkdirSync(DIR_DATA, { recursive: true });
 }
-writeFileSync(`${DIR_DATA}/${FILE_LINKS}`, JSON.stringify(targets, null, 2));
+const links = {
+    targets: targets,
+    generated: (new Date()).toISOString()
+}
+writeFileSync(`${DIR_DATA}/${FILE_LINKS}`, JSON.stringify(links, null, 2));

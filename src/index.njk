@@ -6,7 +6,7 @@ title: Redirects
 
 <h1>{{ title }}</h1>
 <p>Alle eingerichteten Kurzlinks:</p>
-<p><small>Last generated: {{ ("" | date) }}</small></p>
+<p><small>Last generated: {{ links.generated }}</small></p>
 
 <table class="table">
   <thead>
@@ -18,7 +18,7 @@ title: Redirects
     </tr>
   </thead>
   <tbody>
-    {% for r in links %}
+    {% for r in links.targets %}
       <tr>
         <td>
           {% if r.status == 'active' %}
