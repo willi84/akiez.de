@@ -8,6 +8,7 @@ const redirects = [
 const result: any = {
   "version": 3,
   "routes": [
+    { "src": "^/$", "dest": "/index.html" },
     // {
     //   "src": "^/rbb-bussgeld$",
     //   "status": 308,
@@ -25,7 +26,10 @@ for (const { from, to } of redirects) {
         result.routes.push({
             "src": `^${from}$`,
             "status": 308,
-            "headers": { "Location": to }
+            "headers": { 
+                "Location": to,
+                "cache-control": "public, max-age=31536000, immutable"
+            }
         });
     } else {
         // TODO: check for "/" and existance
