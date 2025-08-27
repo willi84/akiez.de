@@ -27,13 +27,11 @@ for (const { from, to } of redirects) {
             "status": 308,
             "headers": { "Location": to }
         });
-        continue;
     } else {
         // TODO: check for "/" and existance
         result.routes.push({ "src": `^${from}$`, "dest": to });
     }
     htmlLinks += `<li><a href="${to}">${from} → ${to}</a></li>\n`;
-    result.routes.push({ source: from, destination: to, permanent: true });
 }
 result.routes.push({ "handle": "filesystem" })
 const FILE = 'config.json';
