@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch index.ts",
-    "build": "tsx index.ts && npx @11ty/eleventy --output=.vercel/output/static"
+    "build": "tsx index.ts && npx @11ty/eleventy --input=src --output=.vercel/output/static"
   },
   "repository": {
     "type": "git",
