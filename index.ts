@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 
 const SHEET_ID = "1Q3oGpVqS8k_PV9unRqxYvKFDF0q5qtah2-2QG36K_-c";
 const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
@@ -90,3 +90,6 @@ const links = {
     generated: (new Date()).toLocaleDateString('de-DE', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }),
 }
 writeFileSync(`${DIR_DATA}/${FILE_LINKS}`, JSON.stringify(links, null, 2));
+
+const readJSON = readFileSync(`${DIR_OUTPUT}/${FILE_CONFIG}`).toString();
+console.log(readJSON);
