@@ -2,10 +2,12 @@
 title: Redirects
 ---
 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
 <h1>{{ title }}</h1>
 <p>Alle eingerichteten Kurzlinks:</p>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Slug</th>
@@ -14,7 +16,7 @@ title: Redirects
     </tr>
   </thead>
   <tbody>
-    {% for r in redirects %}
+    {% for r in links %}
       <tr>
         <td><code>{{ r.from }}</code></td>
         <td><a href="{{ r.to }}" target="_blank" rel="noopener">{{ r.to }}</a></td>
