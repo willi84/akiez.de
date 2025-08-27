@@ -41,6 +41,7 @@ const DIR = '.vercel/output';
 if(!existsSync(DIR)) {
     mkdirSync(DIR, { recursive: true });
 }
+console.log(result)
 writeFileSync(`${DIR}/${FILE}`, JSON.stringify(result, null, 2));
 
 
