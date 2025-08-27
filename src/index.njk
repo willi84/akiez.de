@@ -6,14 +6,15 @@ title: Redirects
 
 <h1>{{ title }}</h1>
 <p>Alle eingerichteten Kurzlinks:</p>
+<p><small>Last generated: {{ ("" | date) }}</small></p>
 
 <table class="table">
   <thead>
     <tr>
       <th>status</th>
-      <th>Slug</th>
-      <th>Ziel</th>
-      <th>Testlink</th>
+      <th>type</th>
+      <th>to</th>
+      <th>from</th>
     </tr>
   </thead>
   <tbody>
@@ -30,9 +31,9 @@ title: Redirects
             <span class="badge bg-warning text-dark">{{ r.status }}</span>
           {% endif %}
         </td>
-        <td><code>{{ r.from }}</code></td>
+        <td>{{r.type}}</td>
         <td><a href="{{ r.to }}" target="_blank" rel="noopener">{{ r.to }}</a></td>
-        <td><a href="{{ r.from }}" target="_blank" rel="noopener">{{ r.from }}</a></td>
+        <td><code>{{ r.from }}</code> (<a href="{{ r.from }}" target="_blank" rel="noopener">👉 Test</a>)</td>
       </tr>
     {% endfor %}
   </tbody>
