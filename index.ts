@@ -31,20 +31,28 @@ const result: any = {
     { "src": "^/$", "dest": "/index.html" },
   ]
 }
+const existingFroms = [];
 for (const entry of targets) {
     if(entry.status === 'created') continue; // skip created entries
-    if(entry.to.startsWith('http')) {
-        result.routes.push({
-            "src": `^${entry.from}$`,
-            "status": entry.status === 'active' ? 301 : 404,
-            "headers": { 
-                "Location": entry.to,
-                "cache-control": "public, max-age=31536000, immutable"
-            }
-        });
+    const hasDomain = entry.to.includes('.') && !entry.to.startsWith('/') && !entry.to.endsWith('.html');
+    if(entry.to.startsWith('http') || hasDomain) {
+        if(!existingFroms.includes(entry.from)){
+            existingFroms.push(entry.from);
+            result.routes.push({
+                "src": `^${entry.from}$`,
+                "status": entry.status === 'active' ? 301 : 404,
+                "headers": { 
+                    "Location": entry.to,
+                    "cache-control": "public, max-age=31536000, immutable"
+                }
+            });
+        }
     } else {
-        // TODO: check for "/" and existance
-        result.routes.push({ "src": `^${entry.from}$`, "dest": entry.to, "status": entry.status === 'active' ? 301 : 404 });
+        if(!existingFroms.includes(entry.from)){
+            existingFroms.push(entry.from);
+            // TODO: check for "/"
+            result.routes.push({ "src": `^${entry.from}$`, "dest": entry.to, "status": entry.status === 'active' ? 301 : 404 });
+        }
     }
 }
 result.routes.push({ "handle": "filesystem" })
@@ -57,7 +65,7 @@ const DIR_DATA = 'src/_data';
 if(!existsSync(DIR_OUTPUT)) {
     mkdirSync(DIR_OUTPUT, { recursive: true });
 }
-console.log(result)
+console.log(JSON.stringify(result, null, 2));
 writeFileSync(`${DIR_OUTPUT}/${FILE_CONFIG}`, JSON.stringify(result, null, 2));
 
 // write links file for 11ty
