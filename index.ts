@@ -33,7 +33,7 @@ for (const { from, to } of redirects) {
         result.routes.push({ "src": `^${from}$`, "dest": to });
     }
     htmlLinks += `<li><a href="${to}">${from} → ${to}</a></li>\n`;
-    result.redirects.push({ source: from, destination: to, permanent: true });
+    result.routes.push({ source: from, destination: to, permanent: true });
 }
 result.routes.push({ "handle": "filesystem" })
 const FILE = 'config.json';
