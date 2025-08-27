@@ -1,0 +1,25 @@
+---
+title: Redirects
+---
+
+<h1>{{ title }}</h1>
+<p>Alle eingerichteten Kurzlinks:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Slug</th>
+      <th>Ziel</th>
+      <th>Testlink</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in redirects %}
+      <tr>
+        <td><code>{{ r.from }}</code></td>
+        <td><a href="{{ r.to }}" target="_blank" rel="noopener">{{ r.to }}</a></td>
+        <td><a href="{{ r.from }}" target="_blank" rel="noopener">{{ r.from }}</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

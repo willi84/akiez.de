@@ -9,18 +9,8 @@ const result: any = {
   "version": 3,
   "routes": [
     { "src": "^/$", "dest": "/index.html" },
-    // {
-    //   "src": "^/rbb-bussgeld$",
-    //   "status": 308,
-    //   "headers": { "Location": "https://www.rbb24.de/panorama/beitrag/2025/08/berlin-bussgeld-katalog-verschenke-kisten.html" }
-    // },
-    // { "src": "^/repair$", "dest": "/support/repair.html" },
-    // { "src": "^/home$", "dest": "/" },
-    // { "handle": "filesystem" }
   ]
 }
-let htmlLinks = ''
-
 for (const { from, to } of redirects) {
     if(to.startsWith('http')) {
         result.routes.push({
@@ -35,21 +25,22 @@ for (const { from, to } of redirects) {
         // TODO: check for "/" and existance
         result.routes.push({ "src": `^${from}$`, "dest": to });
     }
-    htmlLinks += `<li><a href="${to}">${from} → ${to}</a></li>\n`;
 }
 result.routes.push({ "handle": "filesystem" })
-const FILE = 'config.json';
-const DIR = '.vercel/output';
-if(!existsSync(DIR)) {
-    mkdirSync(DIR, { recursive: true });
+const FILE_CONFIG = 'config.json';
+const FILE_LINKS = 'links.json';
+const DIR_OUTPUT = '.vercel/output';
+const DIR_DATA = 'src/_data';
+
+// write vercel config file
+if(!existsSync(DIR_OUTPUT)) {
+    mkdirSync(DIR_OUTPUT, { recursive: true });
 }
 console.log(result)
-writeFileSync(`${DIR}/${FILE}`, JSON.stringify(result, null, 2));
+writeFileSync(`${DIR_OUTPUT}/${FILE_CONFIG}`, JSON.stringify(result, null, 2));
 
-
-// create public/index.html
-if(!existsSync('public')) {
-    mkdirSync('public');
+// write links file for 11ty
+if(!existsSync(DIR_DATA)) {
+    mkdirSync(DIR_DATA, { recursive: true });
 }
-const HTML = `adlerkiez.de url shortener\n<ul>\n${htmlLinks}</ul>\n`;
-writeFileSync('public/index.html', HTML, { encoding: 'utf-8' });
+writeFileSync(`${DIR_DATA}/${FILE_LINKS}`, JSON.stringify(redirects, null, 2));
