@@ -1,4 +1,4 @@
-import { writeFileSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 
 
 const redirects = [
@@ -15,3 +15,10 @@ for (const { from, to } of redirects) {
 }
 const FILE = 'vercel.json';
 writeFileSync(FILE, JSON.stringify({ redirects }, null, 2));
+
+// create public/index.html
+if(!existsSync('public')) {
+    mkdirSync('public');
+}
+const HTML = 'adlerkiez.de url shortener';
+writeFileSync('public/index.html', HTML, { encoding: 'utf-8' });
