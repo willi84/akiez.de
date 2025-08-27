@@ -34,15 +34,17 @@ const result: any = {
 const existingFroms = [];
 for (const entry of targets) {
     if(entry.status === 'created') continue; // skip created entries
+    const hasProtocol = entry.to.startsWith('http://');
     const hasDomain = entry.to.includes('.') && !entry.to.startsWith('/') && !entry.to.endsWith('.html');
     if(entry.to.startsWith('http') || hasDomain) {
+        let target = hasProtocol ? entry.to : `https://${entry.to}`;
         if(!existingFroms.includes(entry.from)){
             existingFroms.push(entry.from);
             result.routes.push({
                 "src": `^${entry.from}$`,
                 "status": entry.status === 'active' ? 301 : 404,
                 "headers": { 
-                    "Location": entry.to,
+                    "Location": target,
                     "cache-control": "public, max-age=31536000, immutable"
                 }
             });
