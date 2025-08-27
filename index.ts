@@ -19,11 +19,13 @@ for (const row of json.table.rows) {
     });
     if(entry.name && entry.ziel && entry.status){
         const to = entry.ziel;
-        const hasProtocol = to.startsWith('http://');
+        const hasProtocol = to.startsWith('http://') || to.startsWith('https://');
         const hasDomain = to.includes('.') && !to.startsWith('/') && !to.endsWith('.html');
         const isExternal = to.startsWith('http') || hasDomain;
         if(isExternal){
-            const finalTo = hasProtocol ? to : `https://${to}`;
+            let finalTo = hasProtocol ? to : `https://${to}`;
+            finalTo = finalTo.replace('http://', 'https://'); // enforce https
+            finalTo = finalTo.replace('www.', ''); // remove www
             targets.push({from: `/${entry.name}`, to: finalTo, status: entry.status, type: 'external'});
         } else {
             targets.push({from: `/${entry.name}`, to: to, status: entry.status, type: 'internal'});
@@ -55,7 +57,7 @@ for (const entry of targets) {
                 "status": entry.status === 'active' ? 301 : 404,
                 "headers": { 
                     "Location": target,
-                    "cache-control": "no-store"
+                    "cache-control": "public, max-age=60"
                 }
             });
         }
